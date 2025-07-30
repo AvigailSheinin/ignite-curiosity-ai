@@ -1,4 +1,5 @@
 import { Child, Lesson, LessonStep } from "@/types/lesson";
+import { apiService } from "@/services/apiService";
 
 // ילדים מדומיינים עם אישיויות שונות
 export const mockChildren: Child[] = [
@@ -128,4 +129,23 @@ export const mockChildResponses = {
     "אולי יש במערות אוצרות נסתרים!",
     "מה אם נעשה ספורט חדש רק באי הזה?"
   ]
+};
+
+// פונקציות עזר לטעינת נתונים מה-API
+export const loadLessonsFromAPI = async () => {
+  try {
+    return await apiService.getLessons();
+  } catch (error) {
+    console.error('Failed to load lessons from API:', error);
+    return [mockLesson]; // fallback למוק דאטא
+  }
+};
+
+export const loadChildrenFromAPI = async () => {
+  try {
+    return await apiService.getChildren();
+  } catch (error) {
+    console.error('Failed to load children from API:', error);
+    return mockChildren; // fallback למוק דאטא
+  }
 };
